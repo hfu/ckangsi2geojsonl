@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'json'
+require 'msgpack'
 
 JSON.parse(open('http://ckan.gsi.go.jp/api/3/action/package_list').
   read)['result'].each{|id|
@@ -23,9 +24,9 @@ JSON.parse(open('http://ckan.gsi.go.jp/api/3/action/package_list').
       retry
     end
   end
-  print JSON.dump({
+  print ({
     :type => 'Feature',
     :geometry => geometry,
     :properties => {:id => id, :title => title}
-  }), "\n" if geometry
+  }).to_msgpack if geometry
 }

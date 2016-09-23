@@ -1,0 +1,4 @@
+*.geojson
+*.geojsonl
+*.msgpackl
+*.msg
